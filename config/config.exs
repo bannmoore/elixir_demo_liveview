@@ -12,7 +12,10 @@ config :live_view_counter, LiveViewCounterWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "5/rsXWWjD0MI2wEwsf/4VMv01q/z9F4ltQlUmEsZrMCEprS8aSmp+RmgWzhEjaAe",
   render_errors: [view: LiveViewCounterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: LiveViewCounter.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "7HekGYwxATz33gM/rH9q2mV+uKJq5/Hu"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -20,7 +23,9 @@ config :logger, :console,
   metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
-config :phoenix, :json_library, Jason
+config :phoenix,
+  json_library: Jason,
+  template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
